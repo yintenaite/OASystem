@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-10 9:25:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.News" table="NEWS">
+        <id name="newsId" type="java.lang.Integer">
+            <column name="NEWS_ID" />
+            <generator class="native" />
+        </id>
+        <property name="newsTitle" type="java.lang.String">
+            <column name="NEWS_TITLE" length="50"/>
+        </property>
+        <property name="newsContent" type="java.lang.String">
+            <column name="NEWS_CONTENT" length="1024"/>
+        </property>
+        <property name="newsTime" type="java.util.Date">
+            <column name="NEWS_TIME" />
+        </property>
+        <property name="clickCount" type="java.lang.Integer">
+			<column name="CLICK_COUNT" />
+		</property>
+		<property name="commentCount" type="java.lang.Integer">
+			<column name="COMMENT_COUNT" />
+		</property>
+        <many-to-one name="user" class="com.oa.model.User" fetch="join" lazy=" false" cascade="none">
+            <column name="USER" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

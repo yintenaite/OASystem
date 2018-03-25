@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<constant name="struts.multipart.saveDir" value="d://temp"></constant>
+	<!-- 工作日志管理 -->
+    <package name="diary" namespace="/" extends="struts-default">
+  		  	<action name="getshowDiary" class="com.oa.action.ar.DiaryAction" method="getshowDiary">
+			      <result name="success">/view/ar/showDetail.jsp</result>
+			</action>
+			<action name="addDiary" class="com.oa.action.ar.DiaryAction" method="addDiary">
+				  <param name="savePath">/uploads</param> 
+			      <result name="success" type="chain">getAllDiary</result>
+			</action>
+			<action name="toAddDiary" class="com.oa.action.ar.DiaryAction" method="toAddDiary">
+			      <result name="success">/view/ar/Diaryadd.jsp</result>
+			</action>
+			<action name="getAllDiary" class="com.oa.action.ar.DiaryAction" method="getAllDiary">
+			     <result name="success">/view/ar/diarymanage.jsp</result>
+			</action>
+			<action name="getAllFile" class="com.oa.action.ar.DiaryAction" method="getAllFiles">
+			     <result name="success">/view/ar/downloadFile.jsp</result>
+			</action>
+			<action name="getById" class="com.oa.action.ar.DiaryAction" method="getById">
+			     <result name="success">/view/ar/Diaryupdate.jsp</result>
+			</action>
+			<action name="updateDiary" class="com.oa.action.ar.DiaryAction" method="updateDiary">
+				<result name="success" type="chain">getAllDiary</result>
+			</action>
+			<action name="delDiary" class="com.oa.action.ar.DiaryAction" method="delDiary">
+			     <result name="success" type="chain">getAllDiary</result>
+			</action>
+			<action name="getShare" class="com.oa.action.ar.DiaryAction" method="getShare">
+			     <result name="success">/view/ar/shareDiary.jsp</result>
+			</action>
+	</package >
+	<!-- 工作事务管理 -->
+	<package name="matter" namespace="/" extends="struts-default">
+			<action name="toAddMatter" class="com.oa.action.ar.MatterAction" method="toAddMatter">
+			      <result name="success">/view/ar/addMatter.jsp</result>
+			</action>
+			<action name="addMatter" class="com.oa.action.ar.MatterAction" method="addMatter">
+			      <result name="success" type="chain">getAllMatter</result>
+			</action>
+			<action name="getAllMatter" class="com.oa.action.ar.MatterAction" method="getAllMatter">
+			     <result name="success">/view/ar/matterManage.jsp</result>
+			</action>
+			<action name="getByIdMatter" class="com.oa.action.ar.MatterAction" method="getByIdMatter">
+			     <result name="success">/view/ar/updateMatter.jsp</result>
+			</action>
+			<action name="updateMatter" class="com.oa.action.ar.MatterAction" method="updateMatter">
+				<result name="success" type="chain">getAllMatter</result>
+			</action>
+			<action name="delMatter" class="com.oa.action.ar.MatterAction" method="delMatter">
+			      <result name="success" type="chain">getAllMatter</result>
+			</action>
+	</package>
+	<!-- 文件下载 -->
+	<package name="downloadFiles"  extends="struts-default">
+	  		 <action name="download" class="com.oa.action.ar.DownloadAction"> 
+	  		 		<result name="success" type="stream">
+	  		 		   <param name="contentType">
+    						 application/octet-stream;charset=UTF-8
+    				   </param>
+	  		 			<param name="bufferSize">8192</param>
+	  		 			<param name="inputName">downloadFile</param>
+	  		 				<param name="contentDisposition">attachment;fileName="${myfilename}"</param> 
+	  		 		</result>
+	          </action>  
+	</package >
+	<!-- 批量删除 -->
+	<package name="diarydelete" namespace="/" extends="json-default">
+		<action name="deleteMore" class="com.oa.action.ar.DiaryAction" method="deleteMore">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>	
+		<action name="moredelete" class="com.oa.action.ar.MatterAction" method="moredelete">
+			<result name="success" type="json">
+				<param name="root">result</param>
+			</result>
+		</action>	
+	</package>
+</struts>

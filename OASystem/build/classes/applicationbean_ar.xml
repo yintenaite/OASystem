@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd
+					  	http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	 	<bean id="filedao" class="com.oa.dao.ar.FileUploadDao" scope="prototype">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>	
+		<bean id="fileService" class="com.oa.service.ar.FileUploadService">
+			<property name="filedao" ref="filedao"></property>
+		</bean>	
+	
+	<bean id="diaryDao" class="com.oa.dao.ar.DiaryDaoImpl" scope="prototype">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>	
+		<bean id="diaryService" class="com.oa.service.ar.DiaryServiceImpl">
+			<property name="diaryDao" ref="diaryDao"></property>
+		</bean>	
+		<bean id="diaryAction" class="com.oa.action.ar.DiaryAction">
+			<property name="diaryService" ref="diaryService"></property>
+			<property name="fileService" ref="fileService"></property>
+			<property name="userService" ref="userService"></property>
+	</bean>	
+	
+	<bean id="matterDao" class="com.oa.dao.ar.MatterDaoImpl" scope="prototype">
+			<property name="sessionFactory" ref="sessionFactory"></property>
+		</bean>	
+		<bean id="matterservice" class="com.oa.service.ar.MatterServiceImpl">
+			<property name="matterDao" ref="matterDao"></property>
+		</bean>	
+		<bean id="matterAction" class="com.oa.action.ar.MatterAction">
+			<property name="matterservice" ref="matterservice"></property>
+	</bean>	
+	 
+		
+</beans>

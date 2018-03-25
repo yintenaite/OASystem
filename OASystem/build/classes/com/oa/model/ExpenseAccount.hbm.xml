@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-1 19:10:24 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.ExpenseAccount" table="EXPENSEACCOUNT">
+      
+        <id name="exaid" type="java.lang.Long">
+            <column name="e_id" />
+            <generator class="native" />
+        </id>
+        
+        <property name="expenseAcId" type="java.lang.String">
+            <column name="e_expenseAcId" />
+        </property>
+        
+        <property name="exaMoney" type="java.lang.Double" >
+            <column name="e_money" />
+        </property>
+        
+         <property name="borrowDate" type="java.lang.Integer">
+            <column name="e_borrowDate" />
+        </property>
+        
+        <property name="expenseAcDate" type="java.util.Date">
+            <column name="e_date" />
+        </property>
+        
+        <property name="expenseAcType" type="java.lang.String">
+            <column name="e_type" />
+        </property>
+        
+        <property name="exaRemark" type="java.lang.String">
+            <column name="e_remark" />
+        </property>
+        
+        <many-to-one name="exaUser" class="com.oa.model.User" >
+            <column name="u_id" />
+        </many-to-one>
+        
+        <property name="exaState" type="java.lang.Integer" >
+            <column name="e_state" />
+        </property>
+        
+        <property name="exaImageSrc" type="java.lang.String">
+            <column name="e_imageSrc" />
+        </property>
+        
+        <many-to-one name="exaWorkType" class="com.oa.model.WorkType" >
+            <column name="e_workType" />
+        </many-to-one>
+        
+    </class>
+</hibernate-mapping>

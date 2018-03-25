@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping 
+	package="com.oa.model">
+	<class name="ReceiveMsg" table="ReceiveMsg">
+		<id name="rmId"><!-- 主键 -->
+			<!-- 
+				主键生成策略
+				1.native:是根据数据库类型，决定主键的自动生成策略		
+				   比如mysql使用auto_increment自增长
+				2.increment:从1开始增长，每次+1，适用于所有数据库
+				3.uuid:生成网络间唯一标识的方式，经常在商品化的软件使用
+				       生成uuid会占用比较多的空间
+			 -->
+			<generator class="increment"/>
+		</id>
+		<property name="readState"/>
+		<property name="isdelete"/>
+		<property name="isRMdelete" type="java.lang.Integer"/>
+		<property name="isTrashdelete" type="java.lang.Integer"/>
+		<many-to-one name="receiver" class="User"/>
+		<many-to-one name="message" class="Message"/>
+	</class>
+</hibernate-mapping>

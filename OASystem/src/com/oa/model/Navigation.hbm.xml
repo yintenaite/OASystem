@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-8-28 11:24:01 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.Navigation" table="NAVIGATION">
+        <id name="navId" type="java.lang.Integer">
+            <column name="n_id" />
+            <generator class="native" />
+        </id>
+        <property name="navValue" type="java.lang.String">
+            <column name="n_value" />
+        </property>
+        <property name="navUrl" type="java.lang.String">
+            <column name="n_url" />
+        </property>
+        <property name="navParentId" type="java.lang.Integer">
+            <column name="n_parentid" />
+        </property>
+        <property name="navChildId" type="java.lang.Integer">
+            <column name="n_childid" />
+        </property>
+        <property name="navClass" type="java.lang.String">
+            <column name="n_class" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

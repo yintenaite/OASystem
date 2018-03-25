@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-8-28 10:59:36 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+	<class name="com.oa.model.User" table="USER">
+		<id name="userId" type="java.lang.Integer">
+			<column name="u_id" />
+			<generator class="native" />
+		</id>
+
+		<property name="userLoginName" type="java.lang.String">
+			<column name="u_loginname" />
+		</property>
+		<property name="userPassword" type="java.lang.String">
+			<column name="u_password" />
+		</property>
+		<property name="userTrueName" type="java.lang.String">
+			<column name="u_truename" />
+		</property>
+		<property name="userState" type="java.lang.Integer">
+			<column name="u_state" />
+		</property>
+		<many-to-one name="role" class="com.oa.model.Role" lazy="false" fetch="join">
+			<column name="r_id"></column>
+		</many-to-one>
+		<many-to-one name="department" class="com.oa.model.Department" lazy="false" fetch="join">
+			<column name="d_id" />
+		</many-to-one>
+		<component name="userProfile" class="com.oa.model.UserProfile"  lazy="false">
+			<property name="userBh" type="java.lang.String">
+				<column name="u_bh" />
+			</property>
+			<property name="userGender" type="java.lang.Character">
+				<column name="u_gender" />
+			</property>
+			<property name="userIdCard" type="java.lang.String">
+				<column name="u_idcard" />
+			</property>
+			<property name="userPhone" type="java.lang.String">
+				<column name="u_phone" />
+			</property>
+			<property name="userBirthday" type="java.lang.String">
+				<column name="u_birthday" />
+			</property>
+			<property name="userCreateTime" type="java.util.Date">
+				<column name="u_createtime" />
+			</property>
+			<property name="userEmail" type="java.lang.String">
+				<column name="u_email" />
+			</property>
+			<property name="userRemark" type="java.lang.String">
+				<column name="u_remark" />
+			</property>
+		</component>
+	</class>
+</hibernate-mapping>

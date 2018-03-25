@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+    <package name="work" namespace="/" extends="struts-default">
+ 	<!--  全局结果视图 -->
+ 	 <global-results>
+ 	 	<result name="login" type="redirect">
+ 	 		view/login.jsp
+ 	 	</result>
+ 	 </global-results>
+ 	 <!-- 考勤单管理 -->
+ 	 <action name="attendance_*" class="attendanceAction" method="{1}">
+ 	 	<result name="totalAttendance">view/mxr/show/showAttendance.jsp</result>
+ 	 </action>
+ 	 	<!-- 公共工作管理 -->
+ 	 	<action name="workManage_*" class="workManageAction" method="{1}">
+ 	 		<!-- 请假单 -->
+ 	 		<result name="findAllWork">view/mxr/leavebill/manageWork.jsp</result>
+ 	 		<result name="startLeaveBill" type="redirectAction"> 
+ 	 			<param name="actionName">workManage_findAllWork</param>
+ 	 		 </result>
+ 	 		<result name="hisWorkLeaveBill">view/mxr/leavebill/showWork.jsp</result>
+ 	 		<!--报销单 -->
+ 	 		<result name="hisWorkAccount">view/mxr/expenseAccount/showExpenseWork.jsp</result>
+ 	 		<result name="startAccount" type="redirectAction">
+     			<param name="actionName">workManage_findAllWork</param>
+     		</result>
+     		<!-- 借款单 -->
+     		<result name="hisWorkBorrow">view/mxr/expenseAccount/showBorrowWork.jsp</result>
+ 	 	</action>
+ 	      <!--请假单业务-->
+     	<action name="LeaveBill_*" class="leaveBillAction" method="{1}">
+     		<result name="leaveBillList">view/mxr/leavebill/manageWork.jsp</result>
+     		<result name="deleteLeaveBill" type="redirectAction">
+     			<param name="actionName">LeaveBill_leaveBillList</param>
+     		</result>
+     		<result name="showUser">view/mxr/leavebill/addWork.jsp</result>
+     		<result name="addLeaveBill" type="redirectAction">
+     			<param name="actionName">workManage_findAllWork</param>
+     		</result>
+     		<result name="showLeaveBill">view/mxr/leavebill/startWork.jsp</result>
+     	</action>
+ 	 
+ 	 <!--请假单工作流 -->
+    	<action name="WorkFlow_*" class="workFlowAction" method="{1}">
+    		<result name="newDeploy" type="redirectAction">
+    			<param name="actionName">WorkFlow_deployHome</param>
+    		</result>
+    		<result name="deployHome">view/mxr/workflow/manageWorkFlow.jsp</result>
+    		<result name="startProcess" type="redirectAction">
+    			<param name="actionName">LeaveBill_leaveBillList</param>
+    		</result>
+    		<result name="viewTaskForm" type="redirectAction">
+    			<param name="actionName">${#url}</param>
+    		</result>
+    		<result name="audit">view/mxr/workflow/examineWork.jsp</result>
+    		<result name="listTask">view/mxr/workflow/approveWork.jsp</result>
+    		<result name="submitTask" type="redirectAction">
+    			<param name="actionName">WorkFlow_listTask</param>
+    		</result>
+    		<result name="viewHisComment">view/mxr/leavebill/showWork.jsp</result>
+    	</action>
+   		  	
+   		<!-- 报销单借款业务 -->
+   		<action name="expense_*" class="expenseAccountAction" method="{1}">
+   			<result name="showUserExpense">view/mxr/expenseAccount/addExpenseWork.jsp</result>
+   			<result name="saveExpense" type="redirectAction">
+   				<param name="actionName">workManage_findAllWork</param>
+   			</result>
+   			<result name="showUserBorrrow">view/mxr/expenseAccount/addBorrowWork.jsp</result>
+   		</action>
+   		<!-- 报销单借款工作流 -->
+   		<action name="WorkFlowExpense_*" class="workFlowExpenseAction" method="{1}">
+   				<result name="audit">view/mxr/expenseWorkFlow/examineExpenseWork.jsp</result>
+   				<result name="auditborrow">view/mxr/expenseWorkFlow/examineBorrowWork.jsp</result>
+   				<result name="submitTask" type="redirectAction">
+   					<param name="actionName">WorkFlow_listTask</param>
+   				</result>
+   		</action>
+    </package>
+    
+    
+    <package name="Ajax" namespace="/" extends="json-default">
+    
+	    		 
+	 	 <!-- 及时聊天 -->
+	 	  <action name="AjaxchatTalk_*" class="chatTalkAction" method="{1}">
+	 		<result name="askChatTalk" type="json">
+	 			<param name="root">result</param>
+	 		</result>
+	 		<result name="findNewChatTalk" type="json">
+	 			<param name="root">newMessage</param>
+	 		</result>
+	 	 </action>
+	    	
+	    
+    	<!--请假单业务-->
+    	 	<action name="AjaxWork_*" class="leaveBillAction" method="{1}">
+    		</action>
+    		
+    	<!--请假单工作流 -->
+    		<action name="AjaxWorkFlow_*" class="workFlowAction" method="{1}">
+    			<result name="isExistDeploy" type="json"></result>
+    			<result name="deleteDeloy" type="json"></result>
+    			<result name="findcording" type="json"></result>
+    		</action>
+    		
+    	 <!--报销单业务  -->
+    		<action name="AjaxExpense_*" class="expenseAccountAction" method="{1}">
+    				
+    		</action>
+    		
+    	 <!-- 报销单工作流 -->
+			  <action name="AjaxExpenseFlow_*" class="workFlowExpenseAction" method="{1}">
+			  
+			  </action>		
+			  
+		   <!-- 报销单工作流 -->
+			  <action name="AjaxWorkManage_*" class="workManageAction" method="{1}">
+			  		<result name="deleteWorkLeaveBill" type="json"></result>
+			  		<result name="deleteWorkAccount" type="json"></result>
+			  </action>		
+    </package>
+</struts>

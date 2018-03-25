@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-16 16:50:53 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.LeaveBill" table="LEAVEBILL">
+       
+        <id name="lid" type="java.lang.Long">
+            <column name="l_id" />
+            <generator class="native" />
+        </id>
+        
+         <property name="leaveBillId" type="java.lang.String">
+            <column name="l_leaveBillId" />
+         </property>
+         
+        <property name="days" type="java.lang.Integer">
+            <column name="l_days" />
+        </property>
+        
+        <property name="content" type="java.lang.String">
+            <column name="l_content" />
+        </property>
+        
+        <property name="leaveDate" type="java.util.Date">
+            <column name="l_leaveDate" />
+        </property>
+        
+         <property name="leaveBillType" type="java.lang.String">
+            <column name="l_leaveBillType" />
+         </property>
+        
+        <property name="remark" type="java.lang.String">
+            <column name="l_remark" />
+        </property>
+        
+        <many-to-one name="user" class="com.oa.model.User">
+            <column name="u_id" />
+        </many-to-one>
+        
+        <property name="state" type="java.lang.Integer">
+            <column name="l_state" />
+        </property>
+    	<many-to-one name="workType" class="com.oa.model.WorkType">
+    		 <column name="l_workType" />
+    	</many-to-one>
+    </class>
+</hibernate-mapping>

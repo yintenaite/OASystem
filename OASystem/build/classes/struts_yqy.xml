@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+
+	<!-- <constant name="struts.objectFactory" value="spring" /> -->
+    <!-- 新闻管理 -->
+    <package name="news" namespace="/" extends="struts-default">
+    	<!-- 新闻 -->
+    	<action name="news-*" class="newsAction" method="{1}">
+    		<result name="list">view/yqy/news/newsManage.jsp</result>
+    		<result name="show">view/yqy/news/newsDetail.jsp</result>
+    		<result name="save" type="redirect">news-list.action</result>
+    	</action>
+    	<!-- 新闻评论 -->
+    	<action name="comment-*" class="commentAction" method="{1}">
+    		<result name="save" type="chain">news-show.action</result>
+    	</action>
+    	
+    </package>
+    
+    <!-- 公告管理 -->
+    <package name="notice" namespace="/" extends="struts-default">
+    	<action name="notice-*" class="noticeAction" method="{1}">
+    		<result name="list">view/yqy/notice/noticeManage.jsp</result>
+    		<result name="show">view/yqy/notice/noticeDetail.jsp</result>
+    		<result name="selMessage">view/yqy/notice/noticeEditor.jsp</result>
+    		<result name="save" type="redirect">notice-list.action</result>
+    	</action>
+    </package>
+    
+    <!-- Ajax -->
+    <package name="myAjax"  namespace="/"  extends="json-default">
+    	<!-- 公告 -->
+    	<action name="mynotice-*" class="noticeAction" method="{1}">
+    		<result name="showButton" type="json">
+    			<param name="root">result</param>
+    		</result>
+    	</action>
+    	<!-- 评论 -->
+    	<action name="comment-*" class="commentAction" method="{1}">
+    		<result name="save" type="json">
+    			<param name="root">commentStr</param>
+			</result>
+			<result name="delComment" type="json">
+				<param name="root">delMessage</param>
+			</result>
+    	</action>
+    	<!-- 新闻 -->
+    	<action name="mynews-*" class="newsAction" method="{1}">
+    		<result name="delete" type="json">
+	        	<param name="root">message</param>
+	    	</result>
+	    	<result name="showTh" type="json">
+	    		<param name="root">msg</param>
+	    	</result>
+    	</action>
+    </package>
+</struts>

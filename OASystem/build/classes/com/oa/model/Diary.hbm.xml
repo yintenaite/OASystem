@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+	"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping	package="com.oa.model">
+	<class name="Diary" table="Diary">
+		<id name="diaryId"><!-- 主键 -->
+			<!-- 
+				主键生成策略
+				1.native:是根据数据库类型，决定主键的自动生成策略		
+				   比如mysql使用auto_increment自增长
+				2.increment:从1开始增长，每次+1，适用于所有数据库
+				3.uuid:生成网络间唯一标识的方式，经常在商品化的软件使用
+				       生成uuid会占用比较多的空间
+			 -->
+			<generator class="increment"/>
+		</id>
+        <property name="diaryTitle" type="java.lang.String">
+            <column name="diaryTitle" />
+        </property>
+        <property name="diaryContent" type="java.lang.String">
+            <column name="diaryContent" />
+        </property>
+         <property name="createTime" type="java.util.Date">
+            <column name="createTime" />
+        </property>
+        <property name="isShare" type="java.lang.Integer">
+            <column name="isShare" />
+        </property>
+        <property name="diaryType" type="java.lang.Integer">
+            <column name="diaryType" />
+        </property>
+        <property name="browseNum" type="java.lang.Integer">
+            <column name="browseNum" />
+        </property>
+        <many-to-one name="shareWho" class="com.oa.model.User">
+            <column name="userId" />
+        </many-to-one>
+         <set name="fid" cascade="save-update" > 
+       		 <key column="diaryId"></key> 
+       		 <one-to-many class="com.oa.model.FileUploadBean"/> 
+    	</set> 
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd
+					  	http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	
+	<!-- 新闻管理 -->
+	<bean id="news" class="com.oa.model.News" scope="prototype"></bean>					
+	
+	<bean id="newsDao" class="com.oa.dao.yqy.NewsDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="newsService" class="com.oa.service.yqy.NewsService">
+		<property name="newsDao" ref="newsDao"></property>
+	</bean>
+	
+	<bean id="newsAction" class="com.oa.action.yqy.NewsAction" scope="prototype">
+		<property name="newsService" ref="newsService"></property>
+		<property name="noticeService" ref="noticeService"></property>
+		<property name="commentService" ref="commentService"></property>
+	</bean>
+	
+	<!-- <bean id="uploadAction" class="com.oa.action.yqy.UploadAction" scope="prototype"></bean> -->
+	
+	<!-- 评论 -->
+	<bean id="comment" class="com.oa.model.Comment" scope="prototype"></bean>
+	
+	<bean id="commentDao" class="com.oa.dao.yqy.CommentDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="commentService" class="com.oa.service.yqy.CommentService">
+		<property name="commentDao" ref="commentDao"></property>
+	</bean>
+	
+	<bean id="commentAction" class="com.oa.action.yqy.CommentAction" scope="prototype">
+		<property name="commentService" ref="commentService"></property>
+		<property name="newsService" ref="newsService"></property>
+	</bean>
+	
+	<!-- 公告管理 -->
+	<bean id="notice" class="com.oa.model.Notice" scope="prototype"></bean>
+	
+	<bean id="noticeDao" class="com.oa.dao.yqy.NoticeDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<bean id="noticeService" class="com.oa.service.yqy.NoticeService">
+		<property name="noticeDao" ref="noticeDao"></property>
+	</bean>
+	
+	<bean id="noticeAction" class="com.oa.action.yqy.NoticeAction" scope="prototype">
+		<property name="noticeService" ref="noticeService"></property>
+		<property name="departmentService" ref="departmentService"></property>
+	</bean>
+</beans>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" 
+"http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="user" namespace="/" extends="struts-default">
+		<action name="getAllUsers" class="userAction" method="getAllUsers">
+			<result name="success">/view/yyf/userManager.jsp</result>
+		</action>
+		<action name="gotoIndex" class="navigationAction" method="getAllNav">
+			<result name="success">/view/index.jsp</result>
+			<result name="error">/view/login.jsp</result>
+		</action>
+		<action name="logout" class="userAction" method="userLogout">
+			<result name="success">/view/login.jsp</result>
+		</action>
+		<action name="forceLogout" class="userAction" method="userForceLogout">
+			<result name="success">/view/login.jsp</result>
+		</action>
+		<action name="addUser" class="departmentAction" method="initDept">
+			<result name="success">/view/yyf/addUser.jsp</result>
+		</action>
+		<action name="addUserSave" class="userAction" method="addUserSave">
+			<result name="success" type="chain">getAllUsers</result>
+		</action>
+		<action name="initDept" class="departmentAction" method="initDept">
+			<result name="success">/view/yyf/roleManager.jsp</result>
+		</action>
+	</package>
+	
+	<package name="ajax" namespace="/" extends="json-default" >
+		<action name="login" class="userAction" method="userLogin">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="forceLogin" class="userAction" method="forceLogin">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="getIp" class="tipAjaxAction" method="getIp">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="getUserMessage" class="userAction" method="showUserById">
+			<result name="success" type="json"></result>
+		</action>
+		<action name="getUserByDept" class="userAction" method="getUserByDept">
+			<result name="success" type="json" />
+		</action>
+		<action name="getRoleByDept" class="roleAction" method="getRolesViaDept">
+			<result name="success" type="json" />
+		</action>
+		<action name="getNavViaMenu" class="navigationAction" method="roleNavMenu">
+			<result name="success" type="json">
+				<param name="root">navListViaJson</param>
+			</result>
+		</action>
+		<action name="updateRoleAjax" class="roleAction" method="updateRoleAjax">
+			<result name="success" type="json">
+				<param name="root">updateRoleResult</param>
+			</result>
+		</action>
+		<action name="addRole" class="roleAction" method="addRole">
+			<result name="success" type="json">
+				<param name="root">addRoleResult</param>
+			</result>
+		</action>
+	</package>
+</struts>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!--邮箱 -->
+	<package name="msg" namespace="/" extends="struts-default">
+		<action name="toMessage" class="messageAction" method="toMessage">
+			<result name="success">view/hy/message.jsp</result>
+		</action>
+		<action name="toAddMessage" class="messageAction" method="toAddMessage">
+			<result name="success">view/hy/addMessage.jsp</result>
+		</action>
+		<action name="addMessage" class="messageAction" method="addMessage">
+			<result name="success">view/hy/success.jsp</result>
+		</action>
+		<action name="keepMessage" class="messageAction" method="keepMessage">
+			<result name="success">view/hy/successKeep.jsp</result>
+		</action>
+
+	</package>
+
+	<package name="sumMsg" namespace="/" extends="struts-default">
+		<action name="huifu" class="sumMsgAction" method="huifu">
+			<result name="success">view/hy/huifu.jsp</result>
+		</action>
+		<action name="zhuanfa" class="sumMsgAction" method="zhuanfa">
+			<result name="success">view/hy/zhuanfa.jsp</result>
+		</action>
+		<action name="liaotian" class="sumMsgAction" method="liaotian">
+			<result name="success">view/hy/chatTalk.jsp</result>
+		</action>
+		<action name="yidu" class="sumMsgAction" method="yidu">
+			<result name="success">view/hy/yidu.jsp</result>
+		</action>
+		<action name="weidu" class="sumMsgAction" method="weidu">
+			<result name="success">view/hy/weidu.jsp</result>
+		</action>
+	</package>
+	<package name="sendBox" namespace="/" extends="struts-default">
+		<action name="toSendBox" class="sendBoxAction" method="toSendBox">
+			<result name="success">view/hy/sendBox.jsp</result>
+		</action>
+		<!-- <action name="getByIdMessage" class="sendBoxAction" method="getByIdMessage"> 
+			<result name="success">toSendBox</result> </action> -->
+	</package>
+
+	<package name="sendBoxAjax" namespace="/" extends="json-default">
+		<action name="getByIdMessage" class="sendBoxAction" method="byIdMessage">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+
+
+	<package name="inBox" namespace="/" extends="struts-default">
+		<action name="toInBox" class="inBoxAction" method="toInBox">
+			<result name="success">view/hy/inBox.jsp</result>
+		</action>
+	</package>
+	<package name="inBoxAjax" namespace="/" extends="json-default">
+		<action name="byIdReciverMsg" class="inBoxAction" method="byIdReciverMsg">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+
+
+	<package name="draftBox" namespace="/" extends="struts-default">
+		<action name="toDraftBox" class="draftBoxAction" method="toDraftBox">
+			<result name="success">view/hy/draftBox.jsp</result>
+		</action>
+	</package>
+	<package name="draftBoxAjax" namespace="/" extends="json-default">
+		<action name="byIdDraftMsg" class="draftBoxAction" method="byIdDraftMsg">
+			<result name="success" type="json"></result>
+		</action>
+	</package>
+
+
+	<package name="trashBox" namespace="/" extends="struts-default">
+		<action name="toTrashBox" class="trashBoxAction" method="toTrashBox">
+			<result name="success">view/hy/trashBox.jsp</result>
+		</action>
+	</package>
+	<!--签到签退 -->
+	<package name="sign" namespace="/" extends="struts-default">
+		<action name="toSignIN" class="signAction" method="toSignIN">
+			<result name="success">view/hy/sign.jsp</result>
+		</action>
+		<action name="addSignIN" class="signAction" method="addSignIN">
+			<result name="success"></result>
+		</action>
+		<action name="addSignOut" class="signAction" method="addSignOut">
+			<result name="success"></result>
+		</action>
+		<!-- <action name="signInList" class="signAction" method="signInList"> 
+			<result name="success">view/hy/sign.jsp</result> </action> -->
+	</package>
+	<package name="signAjax" namespace="/" extends="json-default">
+		<action name="signInList" class="signAction" method="signInList">
+			<result name="success" type="json">
+				<param name="root">signINList</param>
+			</result>
+		</action>
+	</package>
+</struts>

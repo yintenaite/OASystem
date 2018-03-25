@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd
+					  	http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+						
+	<!-- 消息及时发送开始 -->					
+	<bean id="chatTalkDao" class="com.oa.dao.mxr.ChatTalkDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>	
+	<bean id="chatTalkService" class="com.oa.service.mxr.ChatTalkService">
+		<property name="chatTalkDao" ref="chatTalkDao"></property>
+	</bean>		
+	<bean id="chatTalkAction" class="com.oa.action.mxr.ChatTalkAction" scope="prototype">
+		<property name="chatTalkService" ref="chatTalkService"></property>
+	</bean>	
+	<!-- 消息及时发送结束 -->	
+			
+	<!-- 请假单开始  -->
+	<bean id="leaveBillDao" class="com.oa.dao.mxr.LeaveBillDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="leaveBillService" class="com.oa.service.mxr.LeaveBillService">
+		<property name="leaveBillDao" ref="leaveBillDao"></property>
+	</bean>
+	<bean id="leaveBillAction" class="com.oa.action.mxr.LeaveBillAction" scope="prototype">
+			<property name="leaveBillService" ref="leaveBillService"></property>
+			<property name="workFlowService" ref="workFlowService"></property>
+	</bean>
+	<!-- 请假单结束  -->
+	
+	<!-- 请假单工作流开始 -->
+	<bean id="workFlowService" class="com.oa.service.mxr.WorkFlowService">
+		<property name="leaveBillDao" ref="leaveBillDao"></property>
+		<property name="repositoryService" ref="repositoryService"></property>
+		<property name="runtimeService" ref="runtimeService"></property>
+		<property name="taskService" ref="taskService"></property>
+		<property name="formService" ref="formService"></property>
+		<property name="managementService" ref="managementService"></property>
+		<property name="IdentityService" ref="identityService"></property>
+		<property name="historyService" ref="historyService"></property>
+	</bean>
+	<bean id="workFlowAction" class="com.oa.action.mxr.WorkFlowAction" scope="prototype">
+			<property name="workFlowService" ref="workFlowService"></property>
+			<property name="leaveBillService" ref="leaveBillService"></property>
+	</bean>
+	<!-- 请假单工作流结束 -->
+	
+	<!-- 报销单开始 -->
+	<bean id="expenseAccountDao" class="com.oa.dao.mxr.ExpenseAccountDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="expenseAccountService" class="com.oa.service.mxr.ExpenseAccountService">
+		<property name="expenseAccountDao" ref="expenseAccountDao"></property>
+	</bean>
+	<bean id="expenseAccountAction" class="com.oa.action.mxr.ExpenseAccountAction" scope="prototype">
+		<property name="expenseAccountService" ref="expenseAccountService"></property>
+	</bean>
+	<!-- 报销单结束 -->
+	
+	<!-- 报销单工作流开始 -->
+	<bean id="workFlowExpenseService" class="com.oa.service.mxr.WorkFlowExpenseService">
+		<property name="repositoryService" ref="repositoryService"></property>
+		<property name="runtimeService" ref="runtimeService"></property>
+		<property name="taskService" ref="taskService"></property>
+		<property name="formService" ref="formService"></property>
+		<property name="managementService" ref="managementService"></property>
+		<property name="IdentityService" ref="identityService"></property>
+		<property name="historyService" ref="historyService"></property>
+		
+		<property name="expenseAccountDao" ref="expenseAccountDao"></property>
+	</bean>
+	<bean id="workFlowExpenseAction" class="com.oa.action.mxr.WorkFlowExpenseAction">
+		<property name="workFlowExpenseService" ref="workFlowExpenseService"></property>
+		<property name="expenseAccountService" ref="expenseAccountService"></property>
+	</bean>
+	<!-- 报销单工作流结束 -->
+		
+	<!-- 公共工作管理开始 -->	
+		<bean id="workManageAction" class="com.oa.action.mxr.WorkManageAction" scope="prototype">
+				<property name="leaveBillService" ref="leaveBillService"></property>
+				<property name="expenseAccountService" ref="expenseAccountService"></property>
+				<property name="workFlowService" ref="workFlowService"></property>
+				<property name="workFlowExpenseService" ref="workFlowExpenseService"></property>
+		</bean>
+	 <!-- 公共工作管理结束 -->	
+	 <!-- 考勤管理统计开始 -->
+	 <!-- scope singleton prototype request session global session -->
+	 	<!-- <bean id="result"  class="java.lang.String" scope="prototype"></bean> -->
+	 	<bean id="attendanceDao" class="com.oa.dao.mxr.AttendanceDao">
+	 		<property name="sessionFactory" ref="sessionFactory"></property>	
+	 	</bean>
+	 	<bean id="attendanceService" class="com.oa.service.mxr.AttendanceService">
+	 			<property name="attendanceDao" ref="attendanceDao"></property>
+	 	</bean>
+		<bean id="attendanceAction" class="com.oa.action.mxr.AttendanceAction" scope="prototype">
+				<property name="attendanceService" ref="attendanceService"></property>
+				<property name="leaveBillService" ref="leaveBillService"></property>
+				<!-- <property name="result" ref="result"></property> -->
+		</bean> 
+	 <!--考勤管理统计结束-->
+</beans>

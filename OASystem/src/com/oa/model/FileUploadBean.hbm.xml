@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-2 16:47:54 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.FileUploadBean" table="FILEUPLOAD">
+        <id name="fid" >
+            <column name="FID" />
+            <generator class="increment" />
+        </id>
+        <property name="uploadFileName" type="java.lang.String">
+            <column name="uploadFileName" />
+        </property>
+        <property name="savePath" type="java.lang.String">
+            <column name="savePath" />
+        </property>
+        <many-to-one name="diaryId" class="com.oa.model.Diary">
+            <column name="diaryId" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

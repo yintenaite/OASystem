@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+	<!-- 配置实体类 -->
+	<bean id="nav" class="com.oa.model.Navigation" scope="prototype"></bean>
+	<bean id="user" class="com.oa.model.User"  scope="prototype"></bean>
+	<bean id="dept" class="com.oa.model.Department"  scope="prototype"></bean>
+	<bean id="role" class="com.oa.model.Role"  scope="prototype"></bean>
+	<bean id="userProfile" class="com.oa.model.UserProfile"  scope="prototype"></bean>
+	<!-- 配置工具类 -->
+	<bean id="createTree" class="com.oa.tools.login.CreateTree"></bean>
+	<bean id="loginWebSocket" class="com.oa.tools.login.LoginWebSocket"></bean>
+	<!-- 配置Dao -->
+	<bean id="navigationDao" class="com.oa.dao.yyf.NavigationDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="userDao" class="com.oa.dao.yyf.UserDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="roleDao" class="com.oa.dao.yyf.RoleDao">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="departmentDao" class="com.oa.dao.yyf.DepartmentDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	<bean id="loginMessageDao" class="com.oa.dao.yyf.LoginMessageDao">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+	
+	<!-- 配置Service -->
+	<bean id="navigationService" class="com.oa.service.yyf.NavigationService">
+		<property name="navigationDao" ref="navigationDao"></property>
+		<property name="createTree" ref="createTree"></property>
+	</bean>
+	<bean id="userService" class="com.oa.service.yyf.UserService">
+		<property name="userDao" ref="userDao"></property>
+	</bean>
+	<bean id="roleService" class="com.oa.service.yyf.RoleService">
+		<property name="roleDao" ref="roleDao"></property>
+		<property name="createTree" ref="createTree"></property>
+	</bean>
+	<bean id="departmentService" class="com.oa.service.yyf.DepartmentService">
+		<property name="departmentDao" ref="departmentDao"></property>
+	</bean>
+	<bean id="loginMessageService" class="com.oa.service.yyf.LoginMessageService">
+		<property name="loginMessageDao" ref="loginMessageDao"></property>
+	</bean>
+	
+	
+	<!-- 配置Action -->
+	<bean id="navigationAction" class="com.oa.action.yyf.NavigationAction">
+		<property name="navigationService" ref="navigationService"></property>
+		<property name="navList" ref="nav"></property>
+	</bean>
+	<bean id="userAction" class="com.oa.action.yyf.UserAction">
+		<property name="userService" ref="userService"></property>
+		<property name="userList" ref="user"></property>	
+		<property name="loginMessageService" ref="loginMessageService"></property>
+		<property name="loginWebSocket" ref="loginWebSocket"></property>
+		<property name="showUserProfile" ref="userProfile"></property>
+		<property name="addUser" ref="user"></property>
+	</bean>
+	<bean id="roleAction" class="com.oa.action.yyf.RoleAction">
+		<property name="roleService" ref="roleService"></property>	
+	</bean>
+	<bean id="departmentAction" class="com.oa.action.yyf.DepartmentAction">
+		<property name="departmentService" ref="departmentService"></property>
+		<property name="deptList" ref="dept"></property>
+	</bean>
+	<bean id="tipAjaxAction" class="com.oa.action.yyf.TipAjaxAction">
+		<property name="loginMessageService" ref="loginMessageService"></property>
+	</bean>
+</beans>

@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-4 9:47:51 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.Notice_Department" table="NOTICE_DEPARTMENT">
+        <id name="ndId" type="java.lang.Integer">
+            <column name="ND_ID" />
+            <generator class="native" />
+        </id>
+        <many-to-one name="notice" class="com.oa.model.Notice" fetch="join" lazy="false">
+            <column name="NOTICE_ID" />
+        </many-to-one>
+        <many-to-one name="department" class="com.oa.model.Department" fetch="join" lazy="false">
+            <column name="DEPARTMENT_ID" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+						http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/aop 
+						http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+						http://www.springframework.org/schema/context 
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd
+					  	http://www.springframework.org/schema/tx 
+						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd">
+
+	<!--  邮箱-->
+	<bean id="message" class="com.oa.model.Message"></bean>
+	<bean id="receiveMsg" class="com.oa.model.ReceiveMsg"></bean>
+
+	<bean id="messageDao" class="com.oa.dao.hy.MessageDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="messageService" class="com.oa.service.hy.MessageService">
+		<property name="messageDao" ref="messageDao"></property>
+	</bean>
+	<bean id="messageAction" class="com.oa.action.hy.MessageAction">
+		<property name="messageService" ref="messageService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="departmentService" ref="departmentService"></property>
+	</bean>
+
+
+	<bean id="sendBoxDao" class="com.oa.dao.hy.SendBoxDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="sendBoxService" class="com.oa.service.hy.SendBoxService">
+		<property name="sendBoxDao" ref="sendBoxDao"></property>
+	</bean>
+	<bean id="sendBoxAction" class="com.oa.action.hy.SendBoxAction">
+		<property name="sendBoxService" ref="sendBoxService"></property>
+		<property name="messageService" ref="messageService"></property>
+	</bean>
+	
+	<bean id="sumMsgDao" class="com.oa.dao.hy.SumMsgDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="sumMsgService" class="com.oa.service.hy.SumMsgService">
+		<property name="sumMsgDao" ref="sumMsgDao"></property>
+	</bean>
+	<bean id="sumMsgAction" class="com.oa.action.hy.SumMsgAction">
+		<property name="sumMsgService" ref="sumMsgService"></property>
+		<property name="userService" ref="userService"></property>
+		<property name="departmentService" ref="departmentService"></property>
+		<property name="inBoxService" ref="inBoxService"></property>
+	</bean>
+
+
+	<bean id="inBoxDao" class="com.oa.dao.hy.InBoxDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="inBoxService" class="com.oa.service.hy.InBoxService">
+		<property name="inBoxDao" ref="inBoxDao"></property>
+	</bean>
+	<bean id="inBoxAction" class="com.oa.action.hy.InBoxAction">
+		<property name="inBoxService" ref="inBoxService"></property>
+	</bean>
+
+	<bean id="draftBoxDao" class="com.oa.dao.hy.DraftBoxDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="draftBoxService" class="com.oa.service.hy.DraftBoxService">
+		<property name="draftBoxDao" ref="draftBoxDao"></property>
+	</bean>
+	<bean id="draftBoxAction" class="com.oa.action.hy.DraftBoxAction">
+		<property name="draftBoxService" ref="draftBoxService"></property>
+	</bean>
+
+	<bean id="trashBoxDao" class="com.oa.dao.hy.TrashBoxDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="trashBoxService" class="com.oa.service.hy.TrashBoxService">
+		<property name="trashBoxDao" ref="trashBoxDao"></property>
+	</bean>
+	<bean id="trashBoxAction" class="com.oa.action.hy.TrashBoxAction">
+		<property name="trashBoxService" ref="trashBoxService"></property>
+	</bean>
+	
+	 <bean id="Job" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+         <property name="targetObject">  
+            <ref bean="trashBoxDao" />  
+        </property>  
+        <property name="targetMethod">  
+            <!--  要执行的方法名称   --> 
+            <value>delete</value>  
+        </property> 
+        
+    </bean>
+    
+    
+    <!-- 另一种触发器是CornTrigger -->
+     <bean id="cornTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+       <property name="jobDetail" ref="Job"/>
+       <!-- 每个10秒触发 -->
+       <property name="cronExpression" value="0 */1 * * * ?"/>
+    </bean> 
+    
+    <!-- 定义核心调度器 -->
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+      <property name="triggers">
+        <ref bean="cornTrigger"/>
+      </property>
+    </bean>
+    <!-- 每月最后一天23点执行一次：0 0 23 L * ? -->  
+	
+	<!-- 签到签退 -->
+	<bean id="signINDao" class="com.oa.dao.hy.SignINDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="signINService" class="com.oa.service.hy.SignINService">
+		<property name="signINDao" ref="signINDao"></property>
+		<property name="messageDao" ref="messageDao"></property>
+	</bean>
+		<bean id="signOutDao" class="com.oa.dao.hy.SignOutDao">
+		<property name="sf" ref="sessionFactory">
+		</property>
+	</bean>
+	<bean id="signOutService" class="com.oa.service.hy.SignOutService">
+		<property name="signOutDao" ref="signOutDao"></property>
+		<property name="messageDao" ref="messageDao"></property>
+	</bean>
+	<bean id="signAction" class="com.oa.action.hy.SignAction">
+		<property name="signINService" ref="signINService"></property>
+		<property name="signOutService" ref="signOutService"></property>
+	</bean>
+</beans>

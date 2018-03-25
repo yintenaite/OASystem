@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-20 15:58:15 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.ChatTalk" table="CHATTALK">
+         
+          <id name="chartId" type="java.lang.Long">
+            <column name="chart_id" />
+            <generator class="native" />
+       	 </id>
+        
+        <property name="chartDateTime" type="java.util.Date">
+            <column name="chart_DateTime" />
+        </property>
+        
+        <property name="chartMessage" type="java.lang.String">
+            <column name="chart_Message" />
+        </property>
+        
+         <property name="chartUserName" type="java.lang.String">
+            <column name="chart_UserName" />
+        </property>
+        
+    </class>
+</hibernate-mapping>

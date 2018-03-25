@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-24 15:21:27 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.WorkType" table="WORKTYPE">
+       	 <id name="wld" type="java.lang.Long">
+            <column name="w_ld" />
+             <generator class="native" />
+      	  </id>
+        <property name="WorkTypeId" type="java.lang.String" >
+            <column name="w_WorkTypeId" />
+        </property>
+        <property name="WorkName" type="java.lang.String" >
+            <column name="w_WorkName" />
+        </property>
+        <property name="Content" type="java.lang.String" >
+            <column name="w_Content" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-10-4 9:47:51 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.Notice" table="NOTICE">
+        <id name="noticeId" type="java.lang.Integer">
+            <column name="NOTICE_ID" />
+            <generator class="native" />
+        </id>
+        <property name="noticeTitle" type="java.lang.String">
+            <column name="NOTICE_TITLE" />
+        </property>
+        <property name="noticeContent" type="java.lang.String">
+            <column name="NOTICE_CONTENT" />
+        </property>
+        <property name="noticeTime" type="java.util.Date">
+            <column name="NOTICE_TIME" />
+        </property>
+        <property name="noticeType" type="java.lang.String">
+            <column name="NOTICE_TYPE" />
+        </property>
+        <many-to-one name="user" class="com.oa.model.User" fetch="join" lazy="false">
+            <column name="USER" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-9-10 9:25:56 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.Comment" table="COMMENT">
+        <id name="commentId" type="java.lang.Integer">
+            <column name="COMMENT_ID" />
+            <generator class="native" />
+        </id>
+        <property name="commentContent" type="java.lang.String">
+            <column name="COMMENT_CONTENT" length="255"/>
+        </property>
+        <property name="createTime" type="java.util.Date">
+            <column name="CREATE_TIME" />
+        </property>
+        <many-to-one name="user" class="com.oa.model.User" fetch="join" lazy=" false" cascade="none">
+            <column name="USER" />
+        </many-to-one>
+        <many-to-one name="news" class="com.oa.model.News" fetch="join" lazy=" false" cascade="none">
+            <column name="NEWS" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

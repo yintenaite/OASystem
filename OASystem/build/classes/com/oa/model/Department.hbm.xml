@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2015-8-28 11:08:21 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping>
+    <class name="com.oa.model.Department" table="DEPARTMENT">
+        <id name="deptId" type="java.lang.Integer">
+            <column name="d_id" />
+            <generator class="native" />
+        </id>
+        <property name="deptBh" type="java.lang.Integer">
+            <column name="d_bh" />
+        </property>
+        <property name="deptName" type="java.lang.String">
+            <column name="d_name" />
+        </property>
+        <property name="deptStaffCount" type="java.lang.Integer">
+            <column name="d_staffcount" />
+        </property>
+        <property name="deptPhone" type="java.lang.String">
+            <column name="d_phone" />
+        </property>
+        <property name="deptCreateTime" type="java.util.Date">
+            <column name="d_createtime" />
+        </property>
+        <property name="deptRemark" type="java.lang.String">
+            <column name="r_remark" />
+        </property>
+        <property name="deptParentId" type="java.lang.Integer">
+            <column name="d_parentid" />
+        </property>
+        <property name="deptChildId" type="java.lang.Integer">
+            <column name="d_childid" />
+        </property>
+    </class>
+</hibernate-mapping>
