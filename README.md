@@ -1,7 +1,7 @@
 # OASystem
-OA系统部分功能：登录、部门、权限。使用struts,hibernate,spring完成，前端使用现成模板，js,jQuery完成。与后端交互部分用ajax(jQuery)。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;OA系统部分功能：登录、部门、权限。使用struts,hibernate,spring完成，前端使用现成模板，js,jQuery完成。与后端交互部分用ajax(jQuery)。
 #### 登录模块
-防止多人同时用一个账号在不同电脑登录的情况，当情况出现，则通知前面登录的相同账号被异地登录，并强制下线(WebSocket)。
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;防止多人同时用一个账号在不同电脑登录的情况，当情况出现，则通知前面登录的相同账号被异地登录，并强制下线(WebSocket)。
 #### 组织管理模块
 1. 部门管理
 + 增加部门：增加部门时可选择父部门，可以不选择父部门。
